@@ -6,6 +6,7 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
+    "build:azure": "npm install & npm run build",
     "serve": "vite preview"
   },
   "license": "MIT",
