@@ -11,8 +11,6 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
   let duration = 0;
 
   let state = STATE_STOPPED;
-  let progress: any;
-
 
   if (props.hours > 0) {
     duration = (props.hours * 3600);
@@ -32,6 +30,8 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
   const speed = 1000;
   const steps = 360 / duration;
 
+  const audio = new Audio(props.ringtone);
+
   const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds - (hours * 3600)) / 60);
@@ -49,38 +49,48 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
     state = STATE_STOPPED;
   };
 
-  const toggle = () => {
-    if (state == STATE_PLAYING) {
-      clearInterval(progress);
-      state = STATE_PAUSED;
-    } else {
+  const progress: any = setInterval(() => {
+    if (getProgressValue() === 0 && state == STATE_PLAYING) {
 
-      if (state == STATE_STOPPED && duration === 0) {
-        return;
+      if (props.repeat) {
+        audio.play();
+        setProgressValue(duration);
+        setProgress(0);
+        state = STATE_PLAYING;
+      } else {
+        //clearInterval(progress);
+        audio.play();
+        state = STATE_STOPPED;
       }
 
-      progress = setInterval(() => {
-        if (getProgressValue() === 0) {
-          const audio = new Audio(props.ringtone);
-          audio.play();
+    } else {
+      if (state == STATE_PLAYING) {
+        setProgressValue(getProgressValue() - 1);
+        setProgress(getProgress() + steps)
+        state = STATE_PLAYING;
+      }
+    }
 
-          if (props.repeat) {
-            setProgressValue(duration);
-            setProgress(0);
-            state = STATE_PLAYING;
-          } else {
-            clearInterval(progress);
-            state = STATE_STOPPED;
-          }
-        } else {
-          setProgressValue(getProgressValue() - 1);
-          setProgress(getProgress() + steps)
-          state = STATE_PLAYING;
-        }
+    console.log(getProgressValue());
 
-        console.log(getProgressValue());
+  }, speed);
 
-      }, speed);
+  const toggle = () => {
+    if (state == STATE_PLAYING) {
+      state = STATE_PAUSED;
+      return
+    }
+
+    if (state == STATE_PAUSED) {
+      state = STATE_PLAYING;
+      return
+    }
+
+    if (state == STATE_PAUSED || state == STATE_STOPPED) {
+      setProgressValue(duration);
+      setProgress(0);
+      state = STATE_PLAYING;
+      return
     }
   };
 
