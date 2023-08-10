@@ -1,5 +1,6 @@
 import { Component, createSignal } from "solid-js";
 import styles from './Timer.module.css';
+import ringtone from './assets/Real-Alarm-Beeps.mp3';
 import { ITimerProps } from "./types";
 
 const Timer: Component<ITimerProps> = (props: ITimerProps) => {
@@ -30,7 +31,7 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
   const speed = 1000;
   const steps = 360 / duration;
 
-  const audio = new Audio(props.ringtone);
+  const audio = new Audio(ringtone);
 
   const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);

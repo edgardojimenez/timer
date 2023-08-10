@@ -3,6 +3,7 @@ import { render } from 'solid-js/web';
 import './index.css';
 import App from './App';
 import { ITimerProps } from './types';
+import ringtone from './assets/Real-Alarm-Beeps.mp3';
 
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -18,8 +19,12 @@ const appProps: ITimerProps = {
   hours: parseInt(urlParams.get('h') || '0'),
   minutes: parseInt(urlParams.get('m') || '0'),
   seconds: parseInt(urlParams.get('s') || '0'),
-  repeat: urlParams.get('r') === null ? true : Boolean(parseInt(urlParams.get('r')!))
+  repeat: urlParams.get('r') === null ? true : Boolean(parseInt(urlParams.get('r')!)),
+  backgroundColor: '#C2DEDC',
+  color: '#116A7B',
+  ringtone: ringtone
 }
+
 
 render(() => <App {...appProps} />, root!);
 
