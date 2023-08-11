@@ -96,7 +96,7 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
   };
 
   return (
-    <div class={styles.container} onclick={toggle}>
+    <div class={styles.container} onclick={toggle}>Stage....
       <div class={styles.circularProgress} style={`background: conic-gradient(${props.backgroundColor} ${getProgress()}deg, ${props.color} 0deg);`} >
         <span class={styles.progressValue}>{formatTime(getProgressValue())}</span>
       </div>
