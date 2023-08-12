@@ -3,7 +3,7 @@ import { render } from 'solid-js/web';
 import './index.css';
 import App from './App';
 import { ITimerProps } from './types';
-import ringtone from './assets/Real-Alarm-Beeps.mp3';
+import ringtone from './assets/beeps.mp3';
 
 const urlParams = new URLSearchParams(window.location.search);
 

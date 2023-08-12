@@ -1,6 +1,5 @@
 import { Component, createSignal } from "solid-js";
 import styles from './Timer.module.css';
-import ringtone from './assets/Real-Alarm-Beeps.mp3';
 import { ITimerProps } from "./types";
 
 const Timer: Component<ITimerProps> = (props: ITimerProps) => {
@@ -31,7 +30,7 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
   const speed = 1000;
   const steps = 360 / duration;
 
-  const audio = new Audio(ringtone);
+  const audio = new Audio(props.ringtone);
 
   const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);
@@ -42,13 +41,6 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
     const hoursString = hours < 10 ? `0${hours}` : `${hours}`;
     return `${hoursString}:${minutesString}:${secondsString}`;
   }
-
-  const reset = () => {
-    clearInterval(progress);
-    setProgressValue(duration);
-    setProgress(0);
-    state = STATE_STOPPED;
-  };
 
   const progress: any = setInterval(() => {
     if (getProgressValue() === 0 && state == STATE_PLAYING) {
@@ -96,7 +88,7 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
   };
 
   return (
-    <div class={styles.container} onclick={toggle}>Stage....
+    <div class={styles.container} onclick={toggle}>
       <div class={styles.circularProgress} style={`background: conic-gradient(${props.backgroundColor} ${getProgress()}deg, ${props.color} 0deg);`} >
         <span class={styles.progressValue}>{formatTime(getProgressValue())}</span>
       </div>
