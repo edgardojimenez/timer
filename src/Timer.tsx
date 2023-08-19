@@ -30,8 +30,6 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
   const speed = 1000;
   const steps = 360 / duration;
 
-  const audio = new Audio(props.ringtone);
-
   const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds - (hours * 3600)) / 60);
@@ -44,7 +42,7 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
 
   const progress: any = setInterval(() => {
     if (getProgressValue() === 0 && state == STATE_PLAYING) {
-
+      const audio = new Audio(props.ringtone);
       if (props.repeat) {
         audio.play();
         setProgressValue(duration);
