@@ -8,7 +8,7 @@ import ringtone from './assets/beeps.mp3';
 const urlParams = new URLSearchParams(window.location.search);
 
 const root = document.getElementById('root');
-
+console.log(`ring tone: ${ringtone}`)
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   throw new Error(
     'Root element not found. Did you forget to add it to your index.html? Or maybe the id attribute got misspelled?',
