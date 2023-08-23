@@ -7,7 +7,7 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
   const STATE_PLAYING = 1;
   const STATE_PAUSED = 2;
   const STATE_STOPPED = 0;
-
+  console.log(`ring tone2 : ${props.ringtone}`)
   let duration = 0;
 
   let state = STATE_STOPPED;
