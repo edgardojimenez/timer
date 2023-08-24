@@ -9,7 +9,7 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
   const STATE_STOPPED = 0;
   console.log(`ring tone2 : ${props.ringtone}`)
   let duration = 0;
-
+  let audio: HTMLAudioElement;
   let state = STATE_STOPPED;
 
   if (props.hours > 0) {
@@ -42,7 +42,7 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
 
   const progress: any = setInterval(() => {
     if (getProgressValue() === 0 && state == STATE_PLAYING) {
-      const audio = new Audio(props.ringtone);
+
       if (props.repeat) {
         audio.play();
         setProgressValue(duration);
@@ -67,6 +67,8 @@ const Timer: Component<ITimerProps> = (props: ITimerProps) => {
   }, speed);
 
   const toggle = () => {
+    audio = new Audio(props.ringtone);
+
     if (state == STATE_PLAYING) {
       state = STATE_PAUSED;
       return
